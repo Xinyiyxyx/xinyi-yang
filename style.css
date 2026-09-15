@@ -1,0 +1,235 @@
+/* ============================================================
+   Cool Structured · single-column academic homepage
+   Type: IBM Plex Sans only, hierarchy via weight
+   Accent: blue → teal gradient (--grad) on a near-white cool ground
+   All color tokens live in :root; edit there to retheme
+   ============================================================ */
+
+:root {
+  --paper:     #fcfdfd;   /* page background (near white, slightly cool) */
+  --ink:       #1b2126;   /* primary text */
+  --ink-soft:  #333b42;   /* secondary text */
+  --faded:     #7b8790;   /* muted text: affiliation, dates, years */
+  --hairline:  #e5eaec;   /* divider lines */
+  --blue:      #2270b4;   /* gradient start */
+  --teal:      #0f9c88;   /* gradient end */
+  --link:      #157d99;   /* body links (between blue and teal) */
+  --grad:      linear-gradient(120deg, var(--blue), var(--teal));
+  --pill-bg:   #ffffff;   /* pill button fill */
+  --pill-line: #cfdde2;   /* pill button border */
+  --thumb-solid: #e3ecee; /* thumbnail placeholder */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:     #15191c;
+    --ink:       #e4e8ea;
+    --ink-soft:  #c3cbd1;
+    --faded:     #8494a0;
+    --hairline:  #2b3339;
+    --blue:      #5b9fd8;
+    --teal:      #3cbfab;
+    --link:      #4cabbe;
+    --pill-bg:   #1c2226;
+    --pill-line: #37444c;
+    --thumb-solid: #242c31;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 15.5px/1.7 "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  /* 3px blue-teal gradient line across the top; the only large use of color */
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(90deg, #2270b4, #0f9c88) 1;
+}
+
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 56px 24px 48px;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+a:hover, a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 2px; }
+
+em { font-style: italic; }
+
+/* ---------- Header: portrait on the left, beside the name ---------- */
+
+.masthead {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  margin-bottom: 26px;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  flex: none;
+  border-radius: 16px;
+  background: url("assets/photo.jpg") center/cover no-repeat var(--thumb-solid);
+  box-shadow: 0 6px 18px rgba(24, 68, 82, 0.18), 0 2px 6px rgba(24, 68, 82, 0.1);
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin: 0 0 2px;
+}
+
+.affiliation {
+  color: var(--faded);
+  font-size: 15px;
+  margin: 0 0 12px;
+}
+
+/* Outlined pill buttons */
+.links { display: flex; flex-wrap: wrap; gap: 8px; }
+.links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--link);
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-line);
+  border-radius: 999px;
+  padding: 4px 14px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.links a:hover, .links a:focus-visible {
+  text-decoration: none;
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.bio { margin: 0; color: var(--ink-soft); max-width: 640px; }
+.bio + .bio { margin-top: 10px; }
+
+/* ---------- Sections ---------- */
+
+section { margin-top: 44px; }
+
+h2 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faded);
+  margin: 0 0 6px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hairline);
+  position: relative;
+}
+/* Short gradient tick under each section heading */
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 44px;
+  height: 2px;
+  background: var(--grad);
+  border-radius: 1px;
+}
+
+/* ---------- Publications: year column + thumbnail + info ---------- */
+
+.pub {
+  display: grid;
+  grid-template-columns: 56px 128px 1fr;
+  gap: 20px;
+  padding: 18px 0;
+  align-items: start;
+}
+.pub + .pub { border-top: 1px solid var(--hairline); }
+
+.year {
+  color: var(--faded);
+  font-size: 13.5px;
+  font-variant-numeric: tabular-nums;
+  padding-top: 3px;
+}
+
+.thumb {
+  width: 128px;
+  height: 80px;
+  border-radius: 6px;
+  border: 1px solid var(--hairline);
+  /* Image comes from an inline style in the HTML; this fill shows if missing */
+  background-color: var(--thumb-solid);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.pub-info { min-width: 0; }
+
+.pub h3 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.45;
+  margin: 0 0 3px;
+}
+
+.authors {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0 0 2px;
+}
+.authors .me {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.venue {
+  font-size: 13.5px;
+  color: var(--faded);
+  margin: 0 0 6px;
+}
+
+.pub-links { margin: 0; font-size: 13px; }
+.pub-links a {
+  font-weight: 600;
+  margin-right: 14px;
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+  margin-top: 56px;
+  border-top: 1px solid var(--hairline);
+  padding-top: 16px;
+  font-size: 13px;
+  color: var(--faded);
+}
+footer p { margin: 0; }
+
+/* ---------- Placeholder marker; remove the spans once content is filled in ---------- */
+.todo { color: #c05a3e; font-size: 13px; }
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 620px) {
+  .page { padding-top: 36px; }
+  .masthead { gap: 18px; }
+  .avatar { width: 104px; height: 104px; }
+  h1 { font-size: 25px; }
+  .pub {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .year { padding-top: 0; }
+  .thumb { width: 160px; height: 100px; }
+}
