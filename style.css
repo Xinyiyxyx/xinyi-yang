@@ -192,6 +192,14 @@ h2::after {
   font-weight: 600;
   color: var(--ink);
 }
+.authors .eq {
+  font-size: 0.75em;
+  line-height: 0;
+  color: var(--ink-soft);
+}
+.eq-note {
+  color: var(--faded);
+}
 
 .venue {
   font-size: 13.5px;
